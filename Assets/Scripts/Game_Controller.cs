@@ -11,6 +11,7 @@ public class Game_Controller : MonoBehaviour{
     // Start is called before the first frame update
     [SerializeField] private GameObject Player;
     [SerializeField] private GameObject Frog_Object;
+    [SerializeField] private GameObject Combat_Manager;
 
     [Header("UI Elements")]
     [SerializeField] private GameObject Abilities_UI; 
@@ -39,6 +40,8 @@ public class Game_Controller : MonoBehaviour{
 
     private bool Action_Happening = false;
     private int Number_Of_Summoned_Frogs = 3;
+     public bool attacking = false;
+     private int currentAttackPower;
    
     //Frog array first number is frog number second is a set of integers that line up with an ability
     
@@ -61,6 +64,8 @@ public class Game_Controller : MonoBehaviour{
       public FrogObject(){
         abilityOne = "Attack";
         abilityTwo = "Defend";
+        abilityThree = "";
+        abilityFour = "";
       }
 
     }
@@ -93,6 +98,7 @@ public class Game_Controller : MonoBehaviour{
 
     void Start()
     {
+      Combat_Manager.GetComponent<Combat_Manager>().startCombat(0);
       //Add all frog objects to the dictionary
       frogList.Add("frog1", frog1);
       frogList.Add("frog2", frog2);
@@ -213,19 +219,47 @@ private void summonFrogObjects(){
 
 public void frogClick(int frogNumber){
 
+button1.gameObject.GetComponent<Button>().interactable = true;
+button2.gameObject.GetComponent<Button>().interactable = true;
+button3.gameObject.GetComponent<Button>().interactable = true;
+button4.gameObject.GetComponent<Button>().interactable = true;
+
 FrogObject temp;
 temp = frogList[ onScreenFrogs[frogNumber]];
+
+if(temp.abilityOne != ""){
+  button1.SetActive(true);
 text1.text = temp.abilityOne;
 onScreenAbilities[0] = text1.text;
+}else{
+  button1.SetActive(false);
+}
 
+
+if(!temp.abilityTwo.Equals("")){
+  button2.SetActive(true);
 text2.text = temp.abilityTwo;
 onScreenAbilities[1] = text2.text;
+}else{
+  button2.SetActive(false);
+}
 
+
+if(temp.abilityThree !=""){
+  button3.SetActive(true);
 text3.text = temp.abilityThree;
 onScreenAbilities[2] = text3.text;
+}else{
+  button3.SetActive(false);
+  } 
 
+if(temp.abilityFour != ""){
+  button4.SetActive(true);
 text4.text = temp.abilityFour;
 onScreenAbilities[3] = text4.text;
+}else{
+  button4.SetActive(false);
+}
 updateUI();
 
 
@@ -237,10 +271,17 @@ updateUI();
 //Get the abiliity of the button pressed and do whatever the ability is
 public void abilityButtonPress(int buttonNumber){
 string Ability_Used = onScreenAbilities[buttonNumber]; 
+button1.gameObject.GetComponent<Button>().interactable = false;
+button2.gameObject.GetComponent<Button>().interactable = false;
+button3.gameObject.GetComponent<Button>().interactable = false;
+button4.gameObject.GetComponent<Button>().interactable = false;
 
 switch(Ability_Used){
 case "Attack":
-print("attakc happened");
+attacking = true;
+currentAttackPower = 5;
+Combat_Manager.GetComponent<Combat_Manager>().startAttackCursor();
+
 break;
 
 case "Defend":
@@ -253,7 +294,7 @@ break;
 }
 
 //Needs to be changed to enemy attacking
-roundEnd();
+//roundEnd();
 }
 
 public void roundEnd(){
@@ -288,6 +329,26 @@ private void addItems(GameObject tempFrog, int frogNum){
 
   tempFrog.GetComponent<Frog>().addItems(temp.hat, temp.armor, temp.weapon);
   
+
+}
+
+public void setAttackingTrue(){
+  attacking = true;
+}
+
+public bool checkAttack(){
+return attacking;
+}
+
+public void doDamage(Enemy beingAttacked){
+print("do damage ran");
+beingAttacked.healthDown(currentAttackPower);
+}
+
+public void endAttack(){
+  attacking = false;
+  Abilities_UI.SetActive(false);
+  Combat_Manager.GetComponent<Combat_Manager>().endAttack();
 
 }
 
