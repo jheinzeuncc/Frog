@@ -6,20 +6,23 @@ public class Frog : MonoBehaviour
 
 
 {
-
+    [SerializeField] private SpriteRenderer spriteRenderer;
    [Header("Item Sprites")]
-    [SerializeField] private GameObject stick;
-    [SerializeField] private GameObject mushroom;
+    [SerializeField] private GameObject royalCape;
+    [SerializeField] private GameObject woodenSword;
+    [SerializeField] private GameObject leafHat;
     [SerializeField] private GameObject cape;
+
    
    private GameObject Game_Manager;
     public int FrogNumber;
     public GameObject weaponPosition;
     private float scale;
+
     // Start is called before the first frame update
     void Start()
     {
-        scale = .05f;
+        scale = .1f;
         
         this.transform.localScale = new Vector3(1f* scale,1f* scale,1f* scale);
         Game_Manager = GameObject.Find("Game_Manager");    
@@ -59,12 +62,14 @@ public class Frog : MonoBehaviour
 
 
    /** test **/
-    public void addItems(string hat, string armor, string weapon){
+    public void addItems(string hat, string armor, string weapon, Sprite frogSprite){
+
+        spriteRenderer.sprite = frogSprite;
         
         switch(hat){
-        case "mushroom":
+        case "leafHat":
         GameObject temp;
-        temp = Instantiate(mushroom,new Vector3(0, 0, 0), Quaternion.identity, this.transform); 
+        temp = Instantiate(leafHat,new Vector3(0, 0, 0), Quaternion.identity, this.transform); 
         
         temp.transform.position = this.transform.position;
         break;
@@ -73,8 +78,12 @@ public class Frog : MonoBehaviour
         }
 
         switch(armor){
-        case "cape":
+        case "royalCape":
         GameObject temp;
+        temp = Instantiate(royalCape,new Vector3(0, 0, 0), Quaternion.identity, this.transform); 
+        temp.transform.position = this.transform.position;
+        break;
+        case "cape":
         temp = Instantiate(cape,new Vector3(0, 0, 0), Quaternion.identity, this.transform); 
         temp.transform.position = this.transform.position;
         break;
@@ -83,10 +92,10 @@ public class Frog : MonoBehaviour
         }
 
         switch(weapon){
-        case "stick":
+        case "woodenSword":
         GameObject temp;
-        temp = Instantiate(stick,new Vector3(0, 0, 0), Quaternion.identity, this.transform); 
-        temp.transform.position = weaponPosition.transform.position;
+        temp = Instantiate(woodenSword,new Vector3(0, 0, 0), Quaternion.identity, this.transform); 
+        temp.transform.position = this.transform.position;
         break;
         default:
         break;

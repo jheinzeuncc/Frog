@@ -58,7 +58,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6244345458465003784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6, y: 0.23, z: 0}
+  m_LocalPosition: {x: -2.61, y: -1.23, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -107,8 +107,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 89c6c872b5b4bfe4096f2b7ee7b606f5, type: 3}
-  m_Color: {r: 0.16475071, g: 0.6037736, b: 0.088287644, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 3d22d96a51c513f44b696dc5900df479, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -130,8 +130,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf07cb7190a554841831b2cb73bcdb17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stick: {fileID: 7547449111427391098, guid: b344dd359f59bba48afbd1dd9e15c152, type: 3}
-  mushroom: {fileID: 6419702403110766919, guid: 252de30e3deddc4459b5114c96200a42, type: 3}
+  spriteRenderer: {fileID: 6244345458465003783}
+  royalCape: {fileID: 6419702403110766919, guid: a45e350464dcebb4daa76509196c560a, type: 3}
+  woodenSword: {fileID: 7547449111427391098, guid: b344dd359f59bba48afbd1dd9e15c152, type: 3}
+  leafHat: {fileID: 6419702403110766919, guid: 252de30e3deddc4459b5114c96200a42, type: 3}
   cape: {fileID: 3252949066872820664, guid: fdc4cf199b4ff834e9fc384bc06b2e16, type: 3}
   FrogNumber: 0
   weaponPosition: {fileID: 3000178197146612249}
@@ -160,16 +162,20 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 10.388291, y: -2.686965}
-      - {x: 9.638709, y: -1.2671838}
-      - {x: 9.366735, y: 1.7268858}
-      - {x: 8.165041, y: 2.0798142}
-      - {x: 6.752431, y: 1.1503909}
-      - {x: 4.840271, y: 1.407603}
-      - {x: 4.3119006, y: 2.3575804}
-      - {x: 2.5561082, y: 2.5840158}
-      - {x: -2.2015858, y: -2.2308245}
-      - {x: -3.5852604, y: -4.953875}
-      - {x: -2.6144323, y: -7.494985}
-      - {x: -0.26549053, y: -8.193821}
-      - {x: 9.482125, y: -8.177601}
+    - - {x: 3.1051588, y: -5.5009027}
+      - {x: 3.23838, y: -5.1846266}
+      - {x: 3.2974577, y: -2.7423096}
+      - {x: 3.309619, y: -2.2790315}
+      - {x: 3.3867404, y: -2.3808253}
+      - {x: 3.6264155, y: 1.3524277}
+      - {x: 3.0980453, y: 1.9161785}
+      - {x: 3.3187463, y: 1.4196007}
+      - {x: 1.2870774, y: 3.080593}
+      - {x: -0.4921956, y: 2.2163086}
+      - {x: -1.3376765, y: 2.9327161}
+      - {x: -3.2835174, y: 3.153291}
+      - {x: -5.346575, y: 0.58311343}
+      - {x: -7.392352, y: -2.3054624}
+      - {x: -6.6974, y: -5.287975}
+      - {x: -1.6448717, y: -5.8212843}
+      - {x: 3.1369715, y: -5.2533116}

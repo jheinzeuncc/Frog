@@ -6,6 +6,8 @@ public class Combat_Manager : MonoBehaviour
 {
     
     [SerializeField] private GameObject enemy;
+    [SerializeField] private GameObject Game_Controller;
+    
     [Header ("Positions")]
     [SerializeField] private GameObject enemyPos1;
     [SerializeField] private GameObject enemyPos2;
@@ -48,13 +50,20 @@ public class Combat_Manager : MonoBehaviour
 
 private void startCombat0(){
 GameObject temp;
+int index;
  temp = Instantiate(enemy,new Vector3(0, 0, 0), Quaternion.identity); 
  enemyList.Add(temp);
+ index = enemyList.IndexOf(temp);
+ temp.GetComponent<Enemy>().listNum = index;
+ temp.GetComponent<Enemy>().setEnemy("Slime");
  enemyList[0].transform.position = enemyPos1.transform.position;
 
 
  temp = Instantiate(enemy,new Vector3(0, 0, 0), Quaternion.identity); 
  enemyList.Add(temp);
+  index = enemyList.IndexOf(temp);
+ temp.GetComponent<Enemy>().listNum = index;
+  temp.GetComponent<Enemy>().setEnemy("Slime");
  enemyList[1].transform.position = enemyPos2.transform.position;
 
 
@@ -66,5 +75,30 @@ public void startAttackCursor(){
 
 public void endAttack(){
     Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+    if(enemyList.Count<1){
+        print("Combat Ended");
+        /*
+
+        add end combat here
+
+
+        */
+        return;
+    }
+
+    foreach(GameObject i in enemyList){
+        i.GetComponent<Enemy>().startAttack();
+    }
+    Game_Controller.GetComponent<Game_Controller>().roundEnd();
+}
+public void removeEnemy(int removeNum){
+enemyList.RemoveAt(removeNum);
+foreach(GameObject i in enemyList){
+    i.GetComponent<Enemy>().listNum -=1;
+}
+if(enemyList.Count == 0){
+    print("end combat");
+    Scene_Manager.Instance.moveToTown();
+}
 }
 }

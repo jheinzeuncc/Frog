@@ -4,6 +4,28 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+    public class FrogObject{
+      public string name;
+      public string abilityOne;
+      public string abilityTwo;
+      public string abilityThree;
+      public string abilityFour;
+      public string hat;
+      public string armor;
+      public string weapon;
+      public Sprite frogSprite;
+
+
+      public FrogObject(){
+        abilityOne = "Attack";
+        abilityTwo = "Defend";
+        abilityThree = "";
+        abilityFour = "";
+        
+        
+      }
+
+    }
 
 public class Game_Controller : MonoBehaviour{
 
@@ -17,6 +39,9 @@ public class Game_Controller : MonoBehaviour{
     [SerializeField] private GameObject Abilities_UI; 
     [SerializeField] private TMP_Text Player_Health; 
     [SerializeField] private Image Player_Health_Bar;
+    [SerializeField] private Image Shield_Image;
+    [SerializeField] private TMP_Text shield_UI_Number;
+    public int shieldAmount;
 
 
 
@@ -34,6 +59,26 @@ public class Game_Controller : MonoBehaviour{
     [Header("Ability 4")]
     [SerializeField] private GameObject button4;
       [SerializeField] private TMP_Text text4;
+
+    [Header("Frog Sprites")]
+    [SerializeField] private Sprite frogSprite1;
+    [SerializeField] private Sprite frogSprite2;
+    [SerializeField] private Sprite frogSprite3;
+    [SerializeField] private Sprite frogSprite4;
+    [SerializeField] private Sprite frogSprite5;
+    [SerializeField] private Sprite frogSprite6;
+    [SerializeField] private Sprite frogSprite7;
+    [SerializeField] private Sprite frogSprite8;
+    [SerializeField] private Sprite frogSprite9;
+    [SerializeField] private Sprite frogSprite10;
+    [SerializeField] private Sprite frogSprite11;
+    [SerializeField] private Sprite frogSprite12;
+    [SerializeField] private Sprite frogSprite13;
+    [SerializeField] private Sprite frogSprite14;
+    [SerializeField] private Sprite frogSprite15;
+ 
+
+    
      
      
 
@@ -41,7 +86,8 @@ public class Game_Controller : MonoBehaviour{
     private bool Action_Happening = false;
     private int Number_Of_Summoned_Frogs = 3;
      public bool attacking = false;
-     private int currentAttackPower;
+     
+
    
     //Frog array first number is frog number second is a set of integers that line up with an ability
     
@@ -51,28 +97,23 @@ public class Game_Controller : MonoBehaviour{
     
 
 
-    public class FrogObject{
-      public string name;
-      public string abilityOne;
-      public string abilityTwo;
-      public string abilityThree;
-      public string abilityFour;
-      public string hat;
-      public string armor;
-      public string weapon;
 
-      public FrogObject(){
-        abilityOne = "Attack";
-        abilityTwo = "Defend";
-        abilityThree = "";
-        abilityFour = "";
+
+    public class AttackStatistics{
+      public int damage;
+      public int shield;
+      public bool targetable;
+
+      public AttackStatistics(int damageNum, int shieldNum){
+      damage = damageNum;
+      shield = shieldNum;
       }
 
     }
 
+    private AttackStatistics currentAttack;
 
- 
-   public FrogObject frog1 = new FrogObject();
+    public FrogObject frog1 = new FrogObject();
    public FrogObject frog2 = new FrogObject();
    public FrogObject frog3 = new FrogObject();
    public FrogObject frog4 = new FrogObject();
@@ -87,12 +128,14 @@ public class Game_Controller : MonoBehaviour{
    public FrogObject frog13 = new FrogObject();
    public FrogObject frog14 = new FrogObject();
    public FrogObject frog15 = new FrogObject();
+
   Dictionary<string, FrogObject> frogList = new Dictionary<string, FrogObject>();
  
   
    //Array of frog numbers currently available 
     private string[] frogsAvailable = new string[15];
     private string[] onScreenFrogs = new string[3];
+
     
 
 
@@ -116,10 +159,30 @@ public class Game_Controller : MonoBehaviour{
       frogList.Add("frog14", frog14);
       frogList.Add("frog15", frog15);
 
+      frog1.frogSprite = frogSprite1;
+      frog2.frogSprite = frogSprite2;
+      frog3.frogSprite = frogSprite3;
+      frog4.frogSprite = frogSprite4;
+      frog5.frogSprite = frogSprite5;
+      frog5.frogSprite = frogSprite5;
+      frog6.frogSprite = frogSprite6;
+      frog7.frogSprite = frogSprite7;
+      frog8.frogSprite = frogSprite8;
+      frog9.frogSprite = frogSprite9;
+      frog10.frogSprite = frogSprite10;
+      frog11.frogSprite = frogSprite11;
+      frog12.frogSprite = frogSprite12;
+      frog13.frogSprite = frogSprite13;
+      frog14.frogSprite = frogSprite14;
+      frog15.frogSprite = frogSprite15;
+
+      
+
       frogList["frog1"].abilityFour = "hi";
-      frogList["frog1"].hat = "mushroom";
-      frogList["frog2"].weapon = "stick";
-      frogList["frog2"].armor = "cape";
+      frogList["frog1"].hat = "leafHat";
+      frogList["frog2"].weapon = "woodenSword";
+      frogList["frog2"].armor = "royalCape";
+      frogList["frog4"].armor = "cape";
     
 
 
@@ -135,13 +198,6 @@ public class Game_Controller : MonoBehaviour{
         roundStart();
         
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    
     }
 
 
@@ -204,15 +260,29 @@ private void summonFrogObjects(){
   //Creates 3 Frogo objects and splits them vertically and moves them to the left to be next to the player and up slightly
   //Eventually should try to change to a radial summon to allow even spacing with more than 3 frogs
   GameObject temp;
+
+
+
   for(int i = 0; i<Number_Of_Summoned_Frogs;i++){
  temp = Instantiate(Frog_Object,new Vector3(0, 0, 0), Quaternion.identity);  
 
+  
  frogPrefabList.Add(temp);
- temp.transform.Translate(-.9f,i-1,10);
- temp.transform.Translate(Vector3.left*5f);
+ 
+ temp.transform.Translate(-.9f,(i-1)*1.5f,10);
+ temp.transform.Translate(Vector3.left*2f);
  temp.transform.Translate(Vector3.up*.7f);
+ 
+
+
+
+
  temp.GetComponent<Frog>().setFrogNumber(i);
  addItems(temp, i);
+  button1.SetActive(false);
+  button2.SetActive(false);
+  button3.SetActive(false);
+  button4.SetActive(false);
 }
 }
 
@@ -278,14 +348,16 @@ button4.gameObject.GetComponent<Button>().interactable = false;
 
 switch(Ability_Used){
 case "Attack":
-attacking = true;
-currentAttackPower = 5;
-Combat_Manager.GetComponent<Combat_Manager>().startAttackCursor();
+
+currentAttack = new AttackStatistics(5,0);
+//Combat_Manager.GetComponent<Combat_Manager>().startAttackCursor();
 
 break;
 
 case "Defend":
-print("player has blocked");
+currentAttack = new AttackStatistics(0,5);
+//endAttack();
+
 break;
 
 default:
@@ -295,6 +367,7 @@ break;
 
 //Needs to be changed to enemy attacking
 //roundEnd();
+startPlayerAbility();
 }
 
 public void roundEnd(){
@@ -315,19 +388,29 @@ foreach(var Frog_Object in frogPrefabList){
 }
 
 
-private void updateHealth(){
-  int current = Player.GetComponent<Player_Controller>().getPlayerHealth();
+public void updateHealth(){
+  float current = Player.GetComponent<Player_Controller>().getPlayerHealth();
 
-  int max = Player.GetComponent<Player_Controller>().getPlayerMaxHealth();
+  float max = Player.GetComponent<Player_Controller>().getPlayerMaxHealth();
+  Player_Health.text = current.ToString();
 
   Player_Health_Bar.fillAmount = current/max;
+
+  if(shieldAmount == 0){
+    Shield_Image.enabled = false;
+    shield_UI_Number.enabled = false;
+  }else{
+    Shield_Image.enabled = true;
+    shield_UI_Number.enabled = true;
+    shield_UI_Number.text = shieldAmount.ToString();
+  }
 }
 
 private void addItems(GameObject tempFrog, int frogNum){
   FrogObject temp;
   temp = frogList[onScreenFrogs[frogNum]];
 
-  tempFrog.GetComponent<Frog>().addItems(temp.hat, temp.armor, temp.weapon);
+  tempFrog.GetComponent<Frog>().addItems(temp.hat, temp.armor, temp.weapon, temp.frogSprite);
   
 
 }
@@ -341,14 +424,32 @@ return attacking;
 }
 
 public void doDamage(Enemy beingAttacked){
-print("do damage ran");
-beingAttacked.healthDown(currentAttackPower);
+
+beingAttacked.healthDown(currentAttack.damage);
 }
 
 public void endAttack(){
   attacking = false;
   Abilities_UI.SetActive(false);
   Combat_Manager.GetComponent<Combat_Manager>().endAttack();
+
+}
+
+private void startPlayerAbility(){
+  shieldAmount += currentAttack.shield;
+  if(currentAttack.damage > 0){
+    attacking = true;
+  Combat_Manager.GetComponent<Combat_Manager>().startAttackCursor();
+  }else{
+    Combat_Manager.GetComponent<Combat_Manager>().endAttack();
+  updateHealth();
+
+  }
+
+}
+
+public Dictionary<string, FrogObject> getFrogList(){
+  return frogList;
 
 }
 

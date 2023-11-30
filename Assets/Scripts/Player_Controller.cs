@@ -6,9 +6,10 @@ public class Player_Controller : MonoBehaviour
 {
     // Start is called before the first frame update
      [SerializeField] private GameObject Player;
+     [SerializeField] private GameObject Game_Controller;
     
-    private int Player_Max_Health = 100;
-    private int Player_Health = 100;
+    private int Player_Max_Health = 20;
+    private int Player_Health = 20;
    
     void Start()
     {
@@ -29,7 +30,16 @@ public class Player_Controller : MonoBehaviour
     }
 
     public void reducePlayerHealth(int reduceAmount){
-        Player_Health = Player_Health - reduceAmount;
+        int tempShield = Game_Controller.GetComponent<Game_Controller>().shieldAmount;
+        if(tempShield>reduceAmount){
+            tempShield -= reduceAmount;
+        }else{
+            tempShield = 0;
+             Player_Health = Player_Health - reduceAmount + tempShield;
+        }
+        Game_Controller.GetComponent<Game_Controller>().shieldAmount = tempShield;
+       
+        Game_Controller.GetComponent<Game_Controller>().updateHealth();
     }
 }
 
