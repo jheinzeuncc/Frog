@@ -1,0 +1,16 @@
+{
+  "name": "edu.jheinze.frog",
+  "version": "1.0.0",
+  "displayName": "Frog Package",
+  "description": "This is the frog package",
+  "unity": "2019.1",
+  "unityRelease": "0b5",
+  "dependencies": {
+ },
+ "keywords": [
+  ],
+  "author": {
+    "name": "Jon Heinze",
+    "email": "jheinze@uncc.edu",
+  }
+}
