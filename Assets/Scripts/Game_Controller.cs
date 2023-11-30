@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using Frog;
 
 public class Game_Controller : MonoBehaviour{
 
