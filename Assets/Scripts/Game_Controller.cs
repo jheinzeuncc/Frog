@@ -113,7 +113,7 @@ public class Game_Controller : MonoBehaviour{
 
     private AttackStatistics currentAttack;
 
-    public FrogObject frog1 = new FrogObject();
+  public FrogObject frog1 = new FrogObject();
    public FrogObject frog2 = new FrogObject();
    public FrogObject frog3 = new FrogObject();
    public FrogObject frog4 = new FrogObject();
