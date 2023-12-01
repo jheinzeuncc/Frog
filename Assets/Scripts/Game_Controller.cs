@@ -4,29 +4,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-    public class FrogObject{
-      public string name;
-      public string abilityOne;
-      public string abilityTwo;
-      public string abilityThree;
-      public string abilityFour;
-      public string hat;
-      public string armor;
-      public string weapon;
-      public Sprite frogSprite;
-
-
-      public FrogObject(){
-        abilityOne = "Attack";
-        abilityTwo = "Defend";
-        abilityThree = "";
-        abilityFour = "";
-        
-        
-      }
-
-    }
-
 public class Game_Controller : MonoBehaviour{
 
 
@@ -42,8 +19,6 @@ public class Game_Controller : MonoBehaviour{
     [SerializeField] private Image Shield_Image;
     [SerializeField] private TMP_Text shield_UI_Number;
     public int shieldAmount;
-
-
 
 
 
