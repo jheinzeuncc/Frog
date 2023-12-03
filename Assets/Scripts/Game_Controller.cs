@@ -427,6 +427,9 @@ public Dictionary<string, FrogObject> getFrogList(){
   return frogList;
 
 }
+public void instantToTown(){
+    Combat_Manager.GetComponent<Combat_Manager>().instantToTown();
+}
 
 
 

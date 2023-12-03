@@ -11,7 +11,7 @@ public class Scene_Manager : MonoBehaviour
        
 
         public static Scene_Manager Instance;
-        //private Dictionary<string, FrogObject> frogList = new Dictionary<string, FrogObject>();
+        private Dictionary<string, FrogObject> frogList = new Dictionary<string, FrogObject>();
     
         
         private void Awake(){
@@ -39,14 +39,19 @@ public class Scene_Manager : MonoBehaviour
         
     }
 
-    public void moveToTown(){
+    public void moveToTown(Dictionary<string, FrogObject> frgLst){
         print("it worked");
+        frogList = frgLst;
       //  frogList = gameManager.GetComponent<Game_Controller>().getFrogList();
         SceneManager.LoadScene (sceneName:"Town");
     }
 
-    public void getFrogList(){
-        
+    public Dictionary<string, FrogObject> getFrogList(){
+        return frogList;
+    }
+
+    public void moveToForest(){
+
     }
 
 

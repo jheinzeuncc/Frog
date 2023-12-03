@@ -24,3 +24,20 @@ using UnityEngine;
       }
 
     }
+
+    public class ShopItem{
+      public int cost;
+      public Sprite itemSprite;
+      public string name;
+      public string itemType;
+
+      public ShopItem(Sprite sprt, int cst, string nam, string type){
+        cost = cst;
+        itemSprite = sprt;
+        name = nam;
+        itemType = type;
+
+
+      
+      }
+    }
