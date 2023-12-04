@@ -98,7 +98,7 @@ foreach(GameObject i in enemyList){
 }
 if(enemyList.Count == 0){
     print("end combat");
-    Scene_Manager.Instance.moveToTown(Game_Controller.GetComponent<Game_Controller>().getFrogList());
+   Game_Controller.GetComponent<Game_Controller>().startNavigation();
 }
 }
 

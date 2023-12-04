@@ -51,7 +51,15 @@ public class Scene_Manager : MonoBehaviour
     }
 
     public void moveToForest(){
+        SceneManager.LoadScene (sceneName:"Combat_Scene");
+        Invoke("updateFrogList", .5f);
+        
 
+    }
+
+    private void updateFrogList(){
+        gameManager = GameObject.Find("Game_Manager"); 
+        gameManager.GetComponent<Game_Controller>().setFrogList(frogList);
     }
 
 
