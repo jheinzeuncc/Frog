@@ -9,15 +9,21 @@ public class Shop : MonoBehaviour
     [SerializeField] GameObject shopItemSpawnPos;
     [SerializeField] GameObject shopItemGameObject;
     [SerializeField] GameObject prefabToDelete;
+    [SerializeField] GameObject shopUI;
+
     [Header ("Item Sprites")]
     [SerializeField] Sprite woodenSwordSprite;
+    [SerializeField] Sprite leafHatSprite;
+    [SerializeField] Sprite royalCapeSprite;
 
     private List<GameObject> deleteList = new List<GameObject>();
 
 
     public ShopItem woodenSword;
+    public ShopItem leafHat;
+    public ShopItem royalCape;
 
-    private bool shopping;
+    public bool shopping;
     public bool buying;
     private float scale;
     private ShopItem currentBuyingItem;
@@ -25,6 +31,8 @@ public class Shop : MonoBehaviour
 
     private float spacing = 1.5f;
     private float itemSpacing = 2f;
+
+    private float adjustDistance = 25f;
     //[SerializeField] GameObject Game_Controller;
     // Start is called before the first frame update
 
@@ -33,12 +41,17 @@ public class Shop : MonoBehaviour
     Dictionary<string, ShopItem> itemList = new Dictionary<string, ShopItem>();
     void Start()
     {
+        shopUI.SetActive(false);
         shopping = false;
         buying  = false;
-        scale = 3f;
+        scale = 4f;
 
        woodenSword = new ShopItem(woodenSwordSprite, 5, "woodenSword", "weapon");
         itemList.Add("item1", woodenSword);
+        royalCape = new ShopItem(royalCapeSprite, 15, "royalCape", "armor");
+        itemList.Add("item2", royalCape);
+        leafHat = new ShopItem(leafHatSprite, 10, "leafHat", "hat");
+        itemList.Add("item3", leafHat);
         
     }
 
@@ -60,7 +73,8 @@ public class Shop : MonoBehaviour
 
       private void OnMouseDown(){
        if(shopping == false){
-        
+        shopping = true;
+         this.transform.localScale = new Vector3(1f* scale,1f* scale,1f* scale);
         openShop();
         //Scene_Manager.Instance.getFrogList();
        }
@@ -89,6 +103,7 @@ public class Shop : MonoBehaviour
         }
     foreach(var GameObject in deleteList){
   Destroy(GameObject);
+  shopUI.SetActive(false);
   
 }  
   deleteList.Clear();
@@ -97,7 +112,7 @@ public class Shop : MonoBehaviour
     }
 
     private void openShop(){
-
+        shopUI.SetActive(true);
         openItems();
 
 
@@ -115,18 +130,28 @@ public class Shop : MonoBehaviour
             temp = Instantiate(shopItemGameObject,new Vector3(0, 0, 0), Quaternion.identity);
            temp.transform.position = shopItemSpawnPos.transform.position;
            string itm = "item" + (i+1);
+          
+            temp.GetComponent<Shop_Item>().setItem(itemList[itm]);
            deleteList.Add(temp);
-            //TO BE REMOVED 
-            //SETS ITEM TO STAY THE SAME
-           itm = "item1";
-           //TO BE REMOVE
+
+            Vector3 newPosition = new Vector3(col * itemSpacing, -row * itemSpacing, 0) + referencePosition;
 
 
-           temp.GetComponent<Shop_Item>().setItem(itemList[itm]);
+             //Adjust for armor 
+           if(temp.GetComponent<Shop_Item>().itemInformation.itemType.Equals("armor") ){
+            newPosition.x += adjustDistance*Time.deltaTime;
+            temp.GetComponent<Shop_Item>().adjustXDistance(adjustDistance);
+           }
 
-
-            Vector3 newPosition = new Vector3(col * spacing, -row * spacing, 0) + referencePosition;
+            if(temp.GetComponent<Shop_Item>().itemInformation.itemType.Equals("hat") ){
+             newPosition.y -= adjustDistance*Time.deltaTime;
+             temp.GetComponent<Shop_Item>().adjustYDistance(adjustDistance);
+           }
+              
+            
             temp.transform.position = newPosition;
+           
+           
 
             col++;
             if (col >= 3)

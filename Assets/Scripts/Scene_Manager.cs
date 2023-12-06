@@ -7,22 +7,29 @@ using UnityEngine.SceneManagement;
 public class Scene_Manager : MonoBehaviour
 {
 
+        
+
         [SerializeField] GameObject gameManager;
        
 
         public static Scene_Manager Instance;
         private Dictionary<string, FrogObject> frogList = new Dictionary<string, FrogObject>();
+        public int gold;
+        public int combatNum;
     
         
         private void Awake(){
+        gold = 20;
 
-      if (Instance != null && Instance != this) 
+      if (Instance == null) 
     { 
-        Destroy(this); 
+        
+        Instance = this; 
     } 
     else 
     { 
-        Instance = this; 
+       
+        Destroy(gameObject); 
     } 
        
         DontDestroyOnLoad(gameObject);
@@ -40,7 +47,7 @@ public class Scene_Manager : MonoBehaviour
     }
 
     public void moveToTown(Dictionary<string, FrogObject> frgLst){
-        print("it worked");
+       
         frogList = frgLst;
       //  frogList = gameManager.GetComponent<Game_Controller>().getFrogList();
         SceneManager.LoadScene (sceneName:"Town");
@@ -60,6 +67,9 @@ public class Scene_Manager : MonoBehaviour
     private void updateFrogList(){
         gameManager = GameObject.Find("Game_Manager"); 
         gameManager.GetComponent<Game_Controller>().setFrogList(frogList);
+    }
+    public void updateGold(){
+        Player_UI_Canvas.Instance.updateGoldUI(gold);
     }
 
 

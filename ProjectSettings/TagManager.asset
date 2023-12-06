@@ -39,9 +39,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2965346357
+    locked: 0
+  - name: Sign
+    uniqueID: 4125864117
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Items
     uniqueID: 1060353085
+    locked: 0
+  - name: Text
+    uniqueID: 871621191
     locked: 0

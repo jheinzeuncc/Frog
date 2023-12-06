@@ -35,6 +35,9 @@ public class Frog : MonoBehaviour
     }
 
     private void OnMouseOver(){
+            if(Game_Manager.GetComponent<Game_Controller>().Action_Happening == true){
+            return;
+        }
         if(Game_Manager.GetComponent<Game_Controller>().checkAttack() == false){
         this.transform.localScale = new Vector3(1.2f * scale,1.2f* scale,1.2f* scale);
         }
@@ -45,8 +48,11 @@ public class Frog : MonoBehaviour
     }
 
     private void OnMouseDown(){
+        if(Game_Manager.GetComponent<Game_Controller>().Action_Happening == true){
+            return;
+        }
        if(Game_Manager.GetComponent<Game_Controller>().checkAttack() == false){
-        
+       this.transform.localScale = new Vector3(1f* scale,1f* scale,1f* scale);
         Game_Manager.GetComponent<Game_Controller>().frogClick(FrogNumber);
        }
     }

@@ -2,11 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Shop_Item : MonoBehaviour
 {
+
+    
     [SerializeField]  private TMP_Text goldNum;
-    private ShopItem itemInformation;
+    [SerializeField] private GameObject notEnoughGoldText;
+    [SerializeField] private SpriteRenderer sprRender;
+    [SerializeField] private Image goldImage;
+    public ShopItem itemInformation;
     private float scale;
     private GameObject shop;
     // Start is called before the first frame update
@@ -39,10 +45,12 @@ public class Shop_Item : MonoBehaviour
     }
 
       private void OnMouseDown(){
-        shop.GetComponent<Shop>().openFrogs(itemInformation);
-      
-        
-        
+        if(Scene_Manager.Instance.gold >= itemInformation.cost){
+            this.transform.localScale = new Vector3(1f* scale,1f* scale,1f* scale);
+            Scene_Manager.Instance.gold -= itemInformation.cost;
+            Scene_Manager.Instance.updateGold();
+             shop.GetComponent<Shop>().openFrogs(itemInformation);
+        }     
        }
     
 
@@ -50,5 +58,20 @@ public class Shop_Item : MonoBehaviour
         //   this.transform.localScale = new Vector3(1f* scale,1f* scale,1f* scale);
         itemInformation = sho;
         goldNum.text = (itemInformation.cost).ToString();
+        sprRender.sprite = itemInformation.itemSprite;
+    }
+
+    public void adjustXDistance(float adjustNum){
+        print("moved "+ adjustNum);
+         Vector3 newPosition = goldImage.transform.position;
+         newPosition.x -= (adjustNum*Time.deltaTime*5);
+         goldImage.transform.position = newPosition;
+    }
+
+        public void adjustYDistance(float adjustNum){
+        print("moved "+ adjustNum);
+         Vector3 newPosition = goldImage.transform.position;
+         newPosition.y += (adjustNum*Time.deltaTime*5);
+         goldImage.transform.position = newPosition;
     }
 }

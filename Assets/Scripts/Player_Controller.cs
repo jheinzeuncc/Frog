@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player_Controller : MonoBehaviour
 {
@@ -13,7 +14,9 @@ public class Player_Controller : MonoBehaviour
    
     void Start()
     {
-
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
 
     // Update is called once per frame
@@ -31,7 +34,7 @@ public class Player_Controller : MonoBehaviour
 
     public void reducePlayerHealth(int reduceAmount){
         int tempShield = Game_Controller.GetComponent<Game_Controller>().shieldAmount;
-        if(tempShield>reduceAmount){
+        if(tempShield>=reduceAmount){
             tempShield -= reduceAmount;
         }else{
             tempShield = 0;
@@ -39,6 +42,17 @@ public class Player_Controller : MonoBehaviour
         }
         Game_Controller.GetComponent<Game_Controller>().shieldAmount = tempShield;
        
+        Game_Controller.GetComponent<Game_Controller>().updateHealth();
+        if(Player_Health <=0){
+            SceneManager.LoadScene (sceneName:"Game Over");
+        }
+    }
+    public void healPlayer(int heal){
+        if((Player_Health+heal)>Player_Max_Health){
+            Player_Health = Player_Max_Health;
+        }else{
+            Player_Health += heal;
+        }
         Game_Controller.GetComponent<Game_Controller>().updateHealth();
     }
 }

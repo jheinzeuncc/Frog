@@ -13,16 +13,21 @@ public class Game_Controller : MonoBehaviour{
     [SerializeField] private GameObject Combat_Manager;
     [SerializeField] private Transform playerCombatPos;
     [SerializeField] private Transform playerAdventurePos;
+    [SerializeField] private GameObject frogPos1;
+    [SerializeField] private GameObject frogPos2;
+    [SerializeField] private GameObject frogPos3;
 
     [Header("UI Elements")]
     [SerializeField] private GameObject Abilities_UI; 
-    [SerializeField] private TMP_Text Player_Health; 
-    [SerializeField] private Image Player_Health_Bar;
-    [SerializeField] private Image Shield_Image;
-    [SerializeField] private TMP_Text shield_UI_Number;
+     
+   
     [SerializeField] private GameObject Combat_UI;
     [SerializeField] private GameObject Adventure_UI;
     public int shieldAmount;
+    private TMP_Text Player_Health; 
+    private Image Player_Health_Bar;
+    private Image Shield_Image;
+    private TMP_Text shield_UI_Number;
 
 
 
@@ -62,7 +67,7 @@ public class Game_Controller : MonoBehaviour{
      
 
 
-    private bool Action_Happening = false;
+    public bool Action_Happening = false;
     private int Number_Of_Summoned_Frogs = 3;
      public bool attacking = false;
      
@@ -126,6 +131,12 @@ public class Game_Controller : MonoBehaviour{
 
     void Start()
     {
+    Player_Health = Player_UI_Canvas.Instance.getHealth();
+    Player_Health_Bar = Player_UI_Canvas.Instance.getHealthBar();
+    Shield_Image = Player_UI_Canvas.Instance.getShieldImage();
+    shield_UI_Number = Player_UI_Canvas.Instance.getShieldUINumber();
+     Scene_Manager.Instance.updateGold();
+
       //Add all frog objects to the dictionary
       frogList.Add("frog1", frog1);
       frogList.Add("frog2", frog2);
@@ -161,12 +172,6 @@ public class Game_Controller : MonoBehaviour{
       frog15.frogSprite = frogSprite15;
 
       
-
-      frogList["frog1"].abilityFour = "hi";
-      frogList["frog1"].hat = "leafHat";
-      frogList["frog2"].weapon = "woodenSword";
-      frogList["frog2"].armor = "royalCape";
-      frogList["frog4"].armor = "cape";
     
 
 
@@ -178,7 +183,7 @@ public class Game_Controller : MonoBehaviour{
         //Deactivate UI Overlays
         Player.transform.position = playerAdventurePos.position;
         Abilities_UI.SetActive(false);
-        Combat_UI.SetActive(false);
+        //Combat_UI.SetActive(false);
 
         
         //roundStart();
@@ -189,9 +194,9 @@ public class Game_Controller : MonoBehaviour{
     }
 
 public void startAdventure(){
-  Combat_Manager.GetComponent<Combat_Manager>().startCombat(0);
+  Combat_Manager.GetComponent<Combat_Manager>().startCombat();
   Player.transform.position = playerCombatPos.position;
-   Combat_UI.SetActive(true);
+ //  Combat_UI.SetActive(true);
    Adventure_UI.SetActive(false);
    resetAvailableFrogs();
    roundStart();
@@ -200,7 +205,7 @@ public void startAdventure(){
 
 public void startNavigation(){
 Player.transform.position = playerAdventurePos.position;
-Combat_UI.SetActive(false);
+//Combat_UI.SetActive(false);
 Adventure_UI.SetActive(true);
 destroyFrogs();
 
@@ -275,10 +280,24 @@ private void summonFrogObjects(){
 
   
  frogPrefabList.Add(temp);
- 
+ switch(i){
+ case 0:
+ temp.transform.position = frogPos1.transform.position;
+ break;
+ case 1:
+ temp.transform.position = frogPos2.transform.position;
+ break;
+ case 2:
+ temp.transform.position = frogPos3.transform.position;
+ break;
+ default:
+ break;
+ }
+ /*
  temp.transform.Translate(-.9f,(i-1)*1.5f,10);
  temp.transform.Translate(Vector3.left*2f);
  temp.transform.Translate(Vector3.up*.7f);
+ */
  
 
 
@@ -347,6 +366,8 @@ updateUI();
 
 //Get the abiliity of the button pressed and do whatever the ability is
 public void abilityButtonPress(int buttonNumber){
+
+Action_Happening = true;
 string Ability_Used = onScreenAbilities[buttonNumber]; 
 button1.gameObject.GetComponent<Button>().interactable = false;
 button2.gameObject.GetComponent<Button>().interactable = false;
@@ -362,13 +383,19 @@ currentAttack = new AttackStatistics(5,0);
 break;
 
 case "Defend":
-currentAttack = new AttackStatistics(0,5);
+currentAttack = new AttackStatistics(0,4);
 //endAttack();
 
 break;
 
 case "Swing Sword":
 currentAttack = new AttackStatistics(10,0);
+break;
+case "Royal Defense":
+currentAttack = new AttackStatistics(0,10);
+break;
+case "Photosynthesis":
+currentAttack = new AttackStatistics(0,0,4);
 break;
 default:
 print (Ability_Used + " not found ");
@@ -448,6 +475,7 @@ public void endAttack(){
 
 private void startPlayerAbility(){
   shieldAmount += currentAttack.shield;
+  Player.GetComponent<Player_Controller>().healPlayer(currentAttack.heal);
   if(currentAttack.damage > 0){
     attacking = true;
   Combat_Manager.GetComponent<Combat_Manager>().startAttackCursor();
@@ -475,17 +503,8 @@ public void setFrogList(Dictionary<string, FrogObject> frg){
 public void setAbilities(){
   for(int i =0; i<frogList.Count;i++){
     string index = "frog"+(i+1);
-    //Hat ability
-    switch(frogList[index].hat){
-    case "leafHat":
-    frogList[index].abilityTwo = "Photosynthesis";
-    
-    break;
-    default: 
-    frogList[index].abilityTwo = "Defend";
-    break;
-  }
 
+  //Weapon ability
   switch(frogList[index].weapon){
     case "woodenSword":
     frogList[index].abilityOne = "Swing Sword";
@@ -494,9 +513,36 @@ public void setAbilities(){
     frogList[index].abilityOne = "Attack";
     break;
   }
+
+     
+  //Armor ability
+  switch(frogList[index].armor){
+    case "royalCape":
+    frogList[index].abilityTwo = "Royal Defense";
+    break;
+    default:
+     frogList[index].abilityTwo = "Defend";
+    break;
+  }
+
+   //Hat ability
+    switch(frogList[index].hat){
+    case "leafHat":
+    frogList[index].abilityThree = "Photosynthesis";
+    
+    break;
+    default: 
+    frogList[index].abilityThree = "";
+    break;
+  }
+  frogList[index].abilityFour = "";
   }
 
 
+}
+
+public void clearShield(){
+  shieldAmount = 0;
 }
 
 

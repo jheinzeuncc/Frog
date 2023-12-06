@@ -439,3 +439,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldNum: {fileID: 5273893489059801521}
+  notEnoughGoldText: {fileID: 7380939325762700716, guid: fcc7370ca78f98241a941c289a09da7b, type: 3}
+  sprRender: {fileID: 6244345458465003783}
+  goldImage: {fileID: 1728101276207937921}

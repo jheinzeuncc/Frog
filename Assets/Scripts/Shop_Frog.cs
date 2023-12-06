@@ -46,7 +46,9 @@ public class Shop_Frog : MonoBehaviour
 
     private void OnMouseDown(){
         if(shop.GetComponent<Shop>().buying == true){
+             this.transform.localScale = new Vector3(1f* scale,1f* scale,1f* scale);
             shop.GetComponent<Shop>().addNewItem(FrogNumber);
+            shop.GetComponent<Shop>().shopping = false;
         }
 
     }
