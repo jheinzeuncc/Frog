@@ -88,6 +88,7 @@ public class Game_Controller : MonoBehaviour{
       public int shield;
       public int heal;
       public bool targetable;
+      public bool AOE;
 
       public AttackStatistics(int damageNum, int shieldNum){
       damage = damageNum;
@@ -97,6 +98,12 @@ public class Game_Controller : MonoBehaviour{
         damage = damageNum;
         shield = shieldNum;
         heal = healNum;
+      }
+      public AttackStatistics(int damageNum, int shieldNum, int healNum, bool area){
+        damage = damageNum;
+        shield = shieldNum;
+        heal = healNum;
+        AOE = area;
       }
 
     }
@@ -375,7 +382,7 @@ button3.gameObject.GetComponent<Button>().interactable = false;
 button4.gameObject.GetComponent<Button>().interactable = false;
 
 switch(Ability_Used){
-case "Attack":
+case "Lick":
 
 currentAttack = new AttackStatistics(5,0);
 //Combat_Manager.GetComponent<Combat_Manager>().startAttackCursor();
@@ -392,10 +399,16 @@ case "Swing Sword":
 currentAttack = new AttackStatistics(10,0);
 break;
 case "Royal Defense":
-currentAttack = new AttackStatistics(0,10);
+currentAttack = new AttackStatistics(0,5,5);
 break;
 case "Photosynthesis":
 currentAttack = new AttackStatistics(0,0,4);
+break;
+case "Party":
+currentAttack = new AttackStatistics(5,0,0,true);
+break;
+case "Cape Block":
+currentAttack = new AttackStatistics(0,8);
 break;
 default:
 print (Ability_Used + " not found ");
@@ -478,7 +491,11 @@ private void startPlayerAbility(){
   Player.GetComponent<Player_Controller>().healPlayer(currentAttack.heal);
   if(currentAttack.damage > 0){
     attacking = true;
+  if(currentAttack.AOE == false){
   Combat_Manager.GetComponent<Combat_Manager>().startAttackCursor();
+  }else{
+  Combat_Manager.GetComponent<Combat_Manager>().startAOEAttack(currentAttack.damage);
+  }
   }else{
     Combat_Manager.GetComponent<Combat_Manager>().endAttack();
   updateHealth();
@@ -492,6 +509,7 @@ public Dictionary<string, FrogObject> getFrogList(){
 
 }
 public void instantToTown(){
+    //Player_UI_Canvas.Instance.gameObject.SetActive(false);
     Combat_Manager.GetComponent<Combat_Manager>().instantToTown();
 }
 
@@ -510,7 +528,7 @@ public void setAbilities(){
     frogList[index].abilityOne = "Swing Sword";
     break;
     default:
-    frogList[index].abilityOne = "Attack";
+    frogList[index].abilityOne = "Lick";
     break;
   }
 
@@ -519,6 +537,9 @@ public void setAbilities(){
   switch(frogList[index].armor){
     case "royalCape":
     frogList[index].abilityTwo = "Royal Defense";
+    break;
+    case "cape":
+    frogList[index].abilityTwo = "Cape Block";
     break;
     default:
      frogList[index].abilityTwo = "Defend";
@@ -530,6 +551,9 @@ public void setAbilities(){
     case "leafHat":
     frogList[index].abilityThree = "Photosynthesis";
     
+    break;
+    case "partyHat":
+    frogList[index].abilityThree = "Party";
     break;
     default: 
     frogList[index].abilityThree = "";

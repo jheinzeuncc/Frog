@@ -49,7 +49,11 @@ public class Shop_Item : MonoBehaviour
             this.transform.localScale = new Vector3(1f* scale,1f* scale,1f* scale);
             Scene_Manager.Instance.gold -= itemInformation.cost;
             Scene_Manager.Instance.updateGold();
+            if(itemInformation.healItem == true){
+               // Player_UI_Canvas.Instance.healPlayer(itemInformation.healAmount);
+            }else{
              shop.GetComponent<Shop>().openFrogs(itemInformation);
+            }
         }     
        }
     

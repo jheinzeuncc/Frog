@@ -10,6 +10,12 @@ public class Scene_Manager : MonoBehaviour
         
 
         [SerializeField] GameObject gameManager;
+        [Header ("Frog prefabs")]
+        [SerializeField] public GameObject royalCape;
+        [SerializeField] public GameObject woodenSword;
+        [SerializeField] public GameObject leafHat;
+        [SerializeField] public GameObject cape;
+        [SerializeField] public GameObject partyHat;
        
 
         public static Scene_Manager Instance;

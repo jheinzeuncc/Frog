@@ -109,6 +109,14 @@ public class Enemy : MonoBehaviour
 
     }
 
+    public void AOEHealthDown(int damage){
+         Current_Health -= damage;
+        if(Current_Health<=0){
+            destroyThis();
+        }
+        updateHealthBar();
+    }
+
     public void startAttack(){
 
         switch(enemyType){

@@ -10,11 +10,15 @@ public class Shop : MonoBehaviour
     [SerializeField] GameObject shopItemGameObject;
     [SerializeField] GameObject prefabToDelete;
     [SerializeField] GameObject shopUI;
+    [SerializeField] GameObject frogUI;
 
     [Header ("Item Sprites")]
     [SerializeField] Sprite woodenSwordSprite;
     [SerializeField] Sprite leafHatSprite;
     [SerializeField] Sprite royalCapeSprite;
+    [SerializeField] Sprite partyHatSprite;
+    [SerializeField] Sprite capeSprite;
+    [SerializeField] Sprite healSprite;
 
     private List<GameObject> deleteList = new List<GameObject>();
 
@@ -22,6 +26,9 @@ public class Shop : MonoBehaviour
     public ShopItem woodenSword;
     public ShopItem leafHat;
     public ShopItem royalCape;
+    public ShopItem partyHat;
+    public ShopItem cape;
+    public ShopItem healItem;
 
     public bool shopping;
     public bool buying;
@@ -42,16 +49,24 @@ public class Shop : MonoBehaviour
     void Start()
     {
         shopUI.SetActive(false);
+        frogUI.SetActive(false);
         shopping = false;
         buying  = false;
         scale = 4f;
 
-       woodenSword = new ShopItem(woodenSwordSprite, 5, "woodenSword", "weapon");
+        woodenSword = new ShopItem(woodenSwordSprite, 5, "woodenSword", "weapon");
         itemList.Add("item1", woodenSword);
-        royalCape = new ShopItem(royalCapeSprite, 15, "royalCape", "armor");
-        itemList.Add("item2", royalCape);
         leafHat = new ShopItem(leafHatSprite, 10, "leafHat", "hat");
-        itemList.Add("item3", leafHat);
+        itemList.Add("item2", leafHat);
+        royalCape = new ShopItem(royalCapeSprite, 15, "royalCape", "armor");
+        itemList.Add("item3", royalCape);
+        partyHat = new ShopItem(partyHatSprite, 10, "partyHat", "hat");
+        itemList.Add("item4", partyHat);
+        cape = new ShopItem(capeSprite, 5, "cape", "armor");
+        itemList.Add("item5", cape);
+        healItem = new ShopItem(healSprite, 5, true, 10);
+        itemList.Add("item6", healItem);
+
         
     }
 
@@ -103,7 +118,9 @@ public class Shop : MonoBehaviour
         }
     foreach(var GameObject in deleteList){
   Destroy(GameObject);
+  shopping = false;
   shopUI.SetActive(false);
+  frogUI.SetActive(false);
   
 }  
   deleteList.Clear();
@@ -126,7 +143,7 @@ public class Shop : MonoBehaviour
         GameObject temp;
         int row = 0;
         int col = 0;
-        for(int i =0; i<3; i++){
+        for(int i =0; i<itemList.Count; i++){
             temp = Instantiate(shopItemGameObject,new Vector3(0, 0, 0), Quaternion.identity);
            temp.transform.position = shopItemSpawnPos.transform.position;
            string itm = "item" + (i+1);
@@ -136,7 +153,7 @@ public class Shop : MonoBehaviour
 
             Vector3 newPosition = new Vector3(col * itemSpacing, -row * itemSpacing, 0) + referencePosition;
 
-
+            if(temp.GetComponent<Shop_Item>().itemInformation.healItem==false){
              //Adjust for armor 
            if(temp.GetComponent<Shop_Item>().itemInformation.itemType.Equals("armor") ){
             newPosition.x += adjustDistance*Time.deltaTime;
@@ -147,7 +164,7 @@ public class Shop : MonoBehaviour
              newPosition.y -= adjustDistance*Time.deltaTime;
              temp.GetComponent<Shop_Item>().adjustYDistance(adjustDistance);
            }
-              
+            }
             
             temp.transform.position = newPosition;
            
@@ -165,6 +182,7 @@ public class Shop : MonoBehaviour
     }
 
     public void openFrogs(ShopItem buyingItem){
+        frogUI.SetActive(true);
         currentBuyingItem = buyingItem;
         buying = true;
          Vector3 referencePosition = spawnPos.transform.position;

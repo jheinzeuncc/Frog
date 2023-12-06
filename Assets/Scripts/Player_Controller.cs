@@ -32,6 +32,11 @@ public class Player_Controller : MonoBehaviour
         return Player_Max_Health;
     }
 
+    public void setPlayerHealth(int hlth){
+        Player_Health = hlth;
+       Game_Controller.GetComponent<Game_Controller>().updateHealth();
+    }
+
     public void reducePlayerHealth(int reduceAmount){
         int tempShield = Game_Controller.GetComponent<Game_Controller>().shieldAmount;
         if(tempShield>=reduceAmount){

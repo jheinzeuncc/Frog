@@ -12,6 +12,7 @@ public class Frog : MonoBehaviour
     [SerializeField] private GameObject woodenSword;
     [SerializeField] private GameObject leafHat;
     [SerializeField] private GameObject cape;
+    [SerializeField] private GameObject partyHat;
 
    
    private GameObject Game_Manager;
@@ -79,6 +80,10 @@ public class Frog : MonoBehaviour
         
         temp.transform.position = this.transform.position;
         break;
+        case "partyHat":
+        temp = Instantiate(partyHat,new Vector3(0, 0, 0), Quaternion.identity, this.transform); 
+        temp.transform.position = this.transform.position;
+        break;
         default:
         break;
         }
@@ -89,6 +94,7 @@ public class Frog : MonoBehaviour
         temp = Instantiate(royalCape,new Vector3(0, 0, 0), Quaternion.identity, this.transform); 
         temp.transform.position = this.transform.position;
         break;
+        
         case "cape":
         temp = Instantiate(cape,new Vector3(0, 0, 0), Quaternion.identity, this.transform); 
         temp.transform.position = this.transform.position;

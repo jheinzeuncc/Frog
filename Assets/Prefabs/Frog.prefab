@@ -135,6 +135,7 @@ MonoBehaviour:
   woodenSword: {fileID: 7547449111427391098, guid: b344dd359f59bba48afbd1dd9e15c152, type: 3}
   leafHat: {fileID: 6419702403110766919, guid: 252de30e3deddc4459b5114c96200a42, type: 3}
   cape: {fileID: 3252949066872820664, guid: fdc4cf199b4ff834e9fc384bc06b2e16, type: 3}
+  partyHat: {fileID: 7547449111427391098, guid: 37decacd193ffa84ebac62bc43b87534, type: 3}
   FrogNumber: 0
   weaponPosition: {fileID: 3000178197146612249}
 --- !u!60 &6244345458465003780

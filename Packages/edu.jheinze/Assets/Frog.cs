@@ -31,14 +31,19 @@ using UnityEngine;
       public Sprite itemSprite;
       public string name;
       public string itemType;
+      public bool healItem;
+      public int healAmount;
 
       public ShopItem(Sprite sprt, int cst, string nam, string type){
         cost = cst;
         itemSprite = sprt;
         name = nam;
         itemType = type;
-
-
-      
+      }
+      public ShopItem(Sprite sprt, int cst, bool heal, int healAmnt){
+        itemSprite = sprt;
+        cost = cst;
+        healItem = heal;
+        healAmount = healAmnt;
       }
     }

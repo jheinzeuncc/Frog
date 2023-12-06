@@ -12,8 +12,13 @@ public class Player_UI_Canvas : MonoBehaviour
     [SerializeField] private Image shieldImage;
      [SerializeField] private TMP_Text shield_UI_Number;
     [SerializeField] private TMP_Text goldText;
+    [SerializeField] private GameObject healthBarPosition;
 
      public static Player_UI_Canvas Instance;
+     public int Player_Health;
+     private int Player_Max_Health = 20;
+
+   
     void Awake()
     {
         
@@ -32,6 +37,7 @@ public class Player_UI_Canvas : MonoBehaviour
         
     }
 
+
     public Image getHealthBar(){
         return healthBar;
     }
@@ -47,6 +53,24 @@ public class Player_UI_Canvas : MonoBehaviour
         
     public void updateGoldUI(int goldNum){
         goldText.text = goldNum.ToString();
+    }
+
+
+    public int getPlayerHealth(){
+        return Player_Health;   
+    }
+
+    public void healPlayer(int heal){
+         if((Player_Health+heal)>Player_Max_Health){
+            Player_Health = Player_Max_Health;
+        }else{
+            Player_Health += heal;
+        }
+        updateHealth();
+    }
+
+    public void updateHealth(){
+
     }
     
 

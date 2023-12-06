@@ -140,6 +140,13 @@ if(enemyNum == lastEnemy){
 
 }
 
+public void startAOEAttack(int damageAmount){
+    foreach(GameObject i in enemyList){
+        i.GetComponent<Enemy>().AOEHealthDown(damageAmount);
+    }
+    Game_Controller.GetComponent<Game_Controller>().endAttack();
+}
+
 
 
 
