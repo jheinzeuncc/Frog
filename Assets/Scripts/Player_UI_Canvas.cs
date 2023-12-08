@@ -13,9 +13,10 @@ public class Player_UI_Canvas : MonoBehaviour
      [SerializeField] private TMP_Text shield_UI_Number;
     [SerializeField] private TMP_Text goldText;
     [SerializeField] private GameObject healthBarPosition;
+    [SerializeField] private GameObject UICanvas;
 
      public static Player_UI_Canvas Instance;
-     public int Player_Health;
+     public int Player_Health = 20;
      private int Player_Max_Health = 20;
 
    
@@ -54,10 +55,20 @@ public class Player_UI_Canvas : MonoBehaviour
     public void updateGoldUI(int goldNum){
         goldText.text = goldNum.ToString();
     }
+    public void disableUI(){
+        UICanvas.SetActive(false);
+    }
+    public void enableUI(){
+        UICanvas.SetActive(true);
+    }
 
 
     public int getPlayerHealth(){
         return Player_Health;   
+    }
+
+    public void setPlayerHealth(int hlth){
+        Player_Health = hlth;
     }
 
     public void healPlayer(int heal){
@@ -70,7 +81,15 @@ public class Player_UI_Canvas : MonoBehaviour
     }
 
     public void updateHealth(){
-
+        print("UI update");
+        print("player health: " + Player_Health);
+        print("player maxhealth: " + Player_Max_Health);
+        healthText.text = Player_Health.ToString();
+        float current;
+        float max;
+        current = Player_Health;
+        max = Player_Max_Health;
+        healthBar.fillAmount = current/max;
     }
     
 

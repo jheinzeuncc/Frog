@@ -183,7 +183,8 @@ public class Game_Controller : MonoBehaviour{
 
 
       Random.InitState(1);
-      Player_Health_Bar.fillAmount = .5f;
+
+    
       updateHealth();
       resetAvailableFrogs();
 
@@ -510,6 +511,7 @@ public Dictionary<string, FrogObject> getFrogList(){
 }
 public void instantToTown(){
     //Player_UI_Canvas.Instance.gameObject.SetActive(false);
+    Player_UI_Canvas.Instance.setPlayerHealth(Player.GetComponent<Player_Controller>().getPlayerHealth());
     Combat_Manager.GetComponent<Combat_Manager>().instantToTown();
 }
 

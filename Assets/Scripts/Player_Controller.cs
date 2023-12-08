@@ -17,6 +17,9 @@ public class Player_Controller : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+        if(Player_UI_Canvas.Instance.getPlayerHealth()>0){
+          Player_Health = Player_UI_Canvas.Instance.getPlayerHealth();
+    }
     }
 
     // Update is called once per frame

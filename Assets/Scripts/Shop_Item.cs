@@ -50,7 +50,7 @@ public class Shop_Item : MonoBehaviour
             Scene_Manager.Instance.gold -= itemInformation.cost;
             Scene_Manager.Instance.updateGold();
             if(itemInformation.healItem == true){
-               // Player_UI_Canvas.Instance.healPlayer(itemInformation.healAmount);
+                Player_UI_Canvas.Instance.healPlayer(itemInformation.healAmount);
             }else{
              shop.GetComponent<Shop>().openFrogs(itemInformation);
             }
@@ -66,14 +66,14 @@ public class Shop_Item : MonoBehaviour
     }
 
     public void adjustXDistance(float adjustNum){
-        print("moved "+ adjustNum);
+       
          Vector3 newPosition = goldImage.transform.position;
          newPosition.x -= (adjustNum*Time.deltaTime*5);
          goldImage.transform.position = newPosition;
     }
 
         public void adjustYDistance(float adjustNum){
-        print("moved "+ adjustNum);
+       
          Vector3 newPosition = goldImage.transform.position;
          newPosition.y += (adjustNum*Time.deltaTime*5);
          goldImage.transform.position = newPosition;

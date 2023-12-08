@@ -24,7 +24,7 @@ public class Combat_Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Scene_Manager.Instance.combatNum =0;
+       
      
     }
 
@@ -46,7 +46,12 @@ public class Combat_Manager : MonoBehaviour
     case 1:
     startCombat1();
     break;
-
+    case 2: 
+    startCombat2();
+    break;
+    case 3:
+    startCombat3();
+    break;
     default:
     print("no combat found");
     break;
@@ -102,6 +107,37 @@ int index;
 }
 
 
+private void startCombat2(){
+GameObject temp;
+int index;
+ temp = Instantiate(enemy,new Vector3(0, 0, 0), Quaternion.identity); 
+ enemyList.Add(temp);
+ index = enemyList.IndexOf(temp);
+ temp.GetComponent<Enemy>().listNum = index;
+ temp.GetComponent<Enemy>().setEnemy("Wolf");
+ enemyList[0].transform.position = enemyPos1.transform.position;
+}
+
+private void startCombat3(){
+GameObject temp;
+int index;
+ temp = Instantiate(enemy,new Vector3(0, 0, 0), Quaternion.identity); 
+ enemyList.Add(temp);
+ index = enemyList.IndexOf(temp);
+ temp.GetComponent<Enemy>().listNum = index;
+ temp.GetComponent<Enemy>().setEnemy("Wolf");
+ enemyList[0].transform.position = enemyPos1.transform.position;
+
+
+ temp = Instantiate(enemy,new Vector3(0, 0, 0), Quaternion.identity); 
+ enemyList.Add(temp);
+  index = enemyList.IndexOf(temp);
+ temp.GetComponent<Enemy>().listNum = index;
+  temp.GetComponent<Enemy>().setEnemy("Slime");
+ enemyList[1].transform.position = enemyPos2.transform.position;
+}
+
+
 
 
 public void startAttackCursor(){
@@ -113,7 +149,7 @@ public void startAttackCursor(){
 public void endAttack(){
     Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     if(enemyList.Count<1){
-        print("Combat Ended");
+      
         Scene_Manager.Instance.combatNum +=1;
         Game_Controller.GetComponent<Game_Controller>().Action_Happening = false;
         Game_Controller.GetComponent<Game_Controller>().clearShield();
@@ -161,7 +197,6 @@ foreach(GameObject i in enemyList){
     }
 }
 if(enemyList.Count == 0){
-    print("end combat");
     
    Game_Controller.GetComponent<Game_Controller>().startNavigation();
 }

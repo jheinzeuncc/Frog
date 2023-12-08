@@ -712,7 +712,7 @@ RectTransform:
   m_Children:
   - {fileID: 836299149}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2121,6 +2121,7 @@ MonoBehaviour:
   shield_UI_Number: {fileID: 1352043035}
   goldText: {fileID: 1226295939}
   healthBarPosition: {fileID: 802798484}
+  UICanvas: {fileID: 975565457}
   Player_Health: 0
 --- !u!1 &994418148
 GameObject:
@@ -3160,7 +3161,7 @@ Transform:
   - {fileID: 1116673223}
   - {fileID: 1902728387}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1511251169
 GameObject:
@@ -3215,7 +3216,7 @@ Transform:
   - {fileID: 994418149}
   - {fileID: 713219475}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1542413607
 GameObject:
@@ -4301,7 +4302,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1954963865
 GameObject:
@@ -4409,11 +4410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1403201025}
-  royalCape: {fileID: 6419702403110766919, guid: a45e350464dcebb4daa76509196c560a, type: 3}
-  woodenSword: {fileID: 7547449111427391098, guid: b344dd359f59bba48afbd1dd9e15c152, type: 3}
-  leafHat: {fileID: 6419702403110766919, guid: 252de30e3deddc4459b5114c96200a42, type: 3}
-  cape: {fileID: 3252949066872820664, guid: fdc4cf199b4ff834e9fc384bc06b2e16, type: 3}
-  partyHat: {fileID: 0}
+  player: {fileID: 1789888226}
   gold: 0
   combatNum: 0
 --- !u!4 &1981584402
@@ -4430,7 +4427,7 @@ Transform:
   m_Children:
   - {fileID: 975565461}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2038578120
 GameObject:

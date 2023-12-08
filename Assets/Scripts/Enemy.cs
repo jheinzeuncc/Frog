@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
 
      [Header("Sprites")]
      [SerializeField] private Sprite slime;
+     [SerializeField] private Sprite wolf;
 
      private GameObject Game_Manager;
      private GameObject player;
@@ -68,6 +69,13 @@ public class Enemy : MonoBehaviour
         updateHealthBar();
         break;
 
+        case "Wolf":
+        scale = 1f;
+        spriteRenderer.sprite = wolf;
+        goldValue = 8;
+        Max_Health = 20;
+        updateHealthBar();
+        break;
         default:
         print("no such enemy found");
         break;
@@ -121,7 +129,6 @@ public class Enemy : MonoBehaviour
 
         switch(enemyType){
         case "Slime":
-        print("slime attack and move right");
         //uncomment to wiggle attack
        transform.Translate(Vector3.left*Time.deltaTime*moveAmount);
        Invoke("moveBack", .2f);
