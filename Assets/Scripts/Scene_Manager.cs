@@ -98,5 +98,8 @@ public class Scene_Manager : MonoBehaviour
         Player_UI_Canvas.Instance.updateGoldUI(gold);
     }
 
+    public void win(){
+        SceneManager.LoadScene(sceneName: "Win");
+    }
 
 }

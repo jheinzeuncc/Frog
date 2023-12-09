@@ -34,15 +34,15 @@ public class Enemy : MonoBehaviour
         Game_Manager = GameObject.Find("Game_Manager");
         player = GameObject.Find("Player");
         Combat_Manager = GameObject.Find("Combat_Manager");
-         scale = 1;
 
        Current_Health = Max_Health;
        updateHealthBar();
 
-
+/*
         Vector3 flip = transform.localScale;
         flip.x *= -1;
         transform.localScale = flip;
+        */
         
     }
 
@@ -67,6 +67,7 @@ public class Enemy : MonoBehaviour
         goldValue = 2;
         Max_Health = 10;
         updateHealthBar();
+        updateSprite();
         break;
 
         case "Wolf":
@@ -75,13 +76,16 @@ public class Enemy : MonoBehaviour
         goldValue = 8;
         Max_Health = 20;
         updateHealthBar();
+        updateSprite();
         break;
         default:
         print("no such enemy found");
         break;
         }
     }
-
+        private void updateSprite(){
+        this.transform.localScale = new Vector3(1f* scale*-1,1f* scale,1f* scale);
+        }
          private void OnMouseOver(){
             if(Game_Manager.GetComponent<Game_Controller>().checkAttack() == true){
         
@@ -134,7 +138,11 @@ public class Enemy : MonoBehaviour
        Invoke("moveBack", .2f);
         player.GetComponent<Player_Controller>().reducePlayerHealth(2);
         break;
-
+        case "Wolf":
+         transform.Translate(Vector3.left*Time.deltaTime*moveAmount);
+       Invoke("moveBack", .2f);
+        player.GetComponent<Player_Controller>().reducePlayerHealth(5);
+        break;
         default:
         print("no such enemy found");
         break;

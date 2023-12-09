@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 1945815549016127914}
   - component: {fileID: 1945815549016127913}
   - component: {fileID: 1945815549016127912}
-  - component: {fileID: 5441735056244801033}
+  - component: {fileID: 7924459389144699340}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -240,11 +240,11 @@ MonoBehaviour:
   Max_Health: 20
   Damage: 0
   Health_Bar: {fileID: 1945815550228053783}
-  moveAmount: 8
   spriteRenderer: {fileID: 1945815549016127913}
   slime: {fileID: 21300000, guid: afd793b1787964e44aa4ce39e16e5bcf, type: 3}
+  wolf: {fileID: 21300000, guid: 9891b7cecef70924890814f079a4b8fc, type: 3}
   listNum: 0
---- !u!60 &5441735056244801033
+--- !u!60 &7924459389144699340
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -266,7 +266,7 @@ PolygonCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   m_Points:
     m_Paths:
     - - {x: 0, y: 0.5}

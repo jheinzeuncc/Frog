@@ -569,6 +569,7 @@ public void setAbilities(){
 
 public void clearShield(){
   shieldAmount = 0;
+  updateHealth();
 }
 
 

@@ -12,6 +12,8 @@ public class Combat_Manager : MonoBehaviour
     [SerializeField] private GameObject enemyPos1;
     [SerializeField] private GameObject enemyPos2;
     [SerializeField] private GameObject enemyPos3;
+    [SerializeField] private GameObject enemyPos4;
+    [SerializeField] private GameObject enemyPos5;
     [Header ("Sprites")]
     [SerializeField] private Texture2D cursor;
     private int iterator;
@@ -50,7 +52,7 @@ public class Combat_Manager : MonoBehaviour
     startCombat2();
     break;
     case 3:
-    startCombat3();
+   startCombat3();
     break;
     default:
     print("no combat found");
@@ -106,7 +108,6 @@ int index;
  enemyList[2].transform.position = enemyPos3.transform.position;
 }
 
-
 private void startCombat2(){
 GameObject temp;
 int index;
@@ -118,6 +119,7 @@ int index;
  enemyList[0].transform.position = enemyPos1.transform.position;
 }
 
+
 private void startCombat3(){
 GameObject temp;
 int index;
@@ -125,7 +127,7 @@ int index;
  enemyList.Add(temp);
  index = enemyList.IndexOf(temp);
  temp.GetComponent<Enemy>().listNum = index;
- temp.GetComponent<Enemy>().setEnemy("Wolf");
+ temp.GetComponent<Enemy>().setEnemy("Slime");
  enemyList[0].transform.position = enemyPos1.transform.position;
 
 
@@ -133,9 +135,32 @@ int index;
  enemyList.Add(temp);
   index = enemyList.IndexOf(temp);
  temp.GetComponent<Enemy>().listNum = index;
-  temp.GetComponent<Enemy>().setEnemy("Slime");
+  temp.GetComponent<Enemy>().setEnemy("Wolf");
  enemyList[1].transform.position = enemyPos2.transform.position;
+/*
+ temp = Instantiate(enemy,new Vector3(0, 0, 0), Quaternion.identity); 
+ enemyList.Add(temp);
+  index = enemyList.IndexOf(temp);
+ temp.GetComponent<Enemy>().listNum = index;
+  temp.GetComponent<Enemy>().setEnemy("Slime");
+ enemyList[2].transform.position = enemyPos3.transform.position;
+
+ temp = Instantiate(enemy,new Vector3(0, 0, 0), Quaternion.identity); 
+ enemyList.Add(temp);
+  index = enemyList.IndexOf(temp);
+ temp.GetComponent<Enemy>().listNum = index;
+  temp.GetComponent<Enemy>().setEnemy("Slime");
+ enemyList[3].transform.position = enemyPos4.transform.position;
+
+ temp = Instantiate(enemy,new Vector3(0, 0, 0), Quaternion.identity); 
+ enemyList.Add(temp);
+  index = enemyList.IndexOf(temp);
+ temp.GetComponent<Enemy>().listNum = index;
+  temp.GetComponent<Enemy>().setEnemy("Slime");
+ enemyList[4].transform.position = enemyPos5.transform.position;
+ */
 }
+
 
 
 
@@ -197,7 +222,9 @@ foreach(GameObject i in enemyList){
     }
 }
 if(enemyList.Count == 0){
-    
+    if(Scene_Manager.Instance.combatNum >= 3){
+        Scene_Manager.Instance.win();
+    }
    Game_Controller.GetComponent<Game_Controller>().startNavigation();
 }
 

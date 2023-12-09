@@ -3197,6 +3197,8 @@ MonoBehaviour:
   enemyPos1: {fileID: 863763792}
   enemyPos2: {fileID: 1637447928}
   enemyPos3: {fileID: 1745824549}
+  enemyPos4: {fileID: 994418148}
+  enemyPos5: {fileID: 713219474}
   cursor: {fileID: 2800000, guid: 666f45a1953efde4aacb8867e4d0d8f5, type: 3}
 --- !u!4 &1511251171
 Transform:
